@@ -65,6 +65,6 @@ public class Token {
             case SYMBOL -> "symbol: ";
             case OTHER -> "";
         };
-        return "\t" + lineNum + ".\t" + prefix + name + "\n";
+        return type == TokenType.OTHER ? "":"\t" + lineNum + ".\t" + prefix + name + "\n";
     }
 }
