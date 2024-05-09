@@ -147,6 +147,7 @@ public class Scanner {
                     token.clear();
                     state = State.START;
                     if (!finish) i--; //是否需要回溯
+                    finish = false;
                 }
             }
             lineNum++;
