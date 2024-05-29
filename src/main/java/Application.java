@@ -1,6 +1,7 @@
 import Lexer.Inputer;
 import Lexer.Scanner;
 import Lexer.Util;
+import Parser.DFA;
 import Parser.Grammar;
 import entities.SourceCode;
 import entities.TokenList;
@@ -17,7 +18,8 @@ public class Application {
         // 进行语法分析
         String grammarRulePath = "src/main/resources/grammar.txt";
         Grammar grammar = new Grammar(grammarRulePath);
-        grammar.show();
+        DFA dfa = new DFA(grammar);
+        dfa.showTable();
         // 输出结果
         //Util.show(sourceCode, tokenList);
     }

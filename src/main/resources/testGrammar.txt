@@ -1,2 +1,2 @@
-S' -> S
-S -> ( S ) S | empty
+E -> S
+S -> S a | empty

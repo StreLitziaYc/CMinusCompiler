@@ -34,6 +34,27 @@ public class Grammar {
         lineList.forEach(this::addGrammar);
     }
 
+    private List<String> removeLeftRecursion(String s) {
+        System.out.println("句型 " + s + "包含左递归！");
+        List<String> list = Arrays.stream(s.split(" "))
+                .filter(e -> !e.isBlank())
+                .toList();
+        String A = list.get(0);
+        int index = list.indexOf("|");
+        StringBuilder alpha = new StringBuilder();
+        list.subList(3, index).forEach(word -> alpha.append(word).append(" "));
+        StringBuilder beta = new StringBuilder();
+        list.subList(index + 1, list.size()).forEach(word -> beta.append(word).append(" "));
+        if (beta.indexOf("empty") == 0) beta.delete(0, beta.length());
+        List<String> result = new ArrayList<>();
+        String s1 = A + " -> " + beta + A + "'";
+        result.add(s1);
+        String s2 = A + "'" + " -> " + alpha + A + "'" + "  |  " + "empty";
+        result.add(s2);
+        System.out.println("消除左递归后是\n" + s1 + "\n" + s2);
+        System.out.println("\n----------------------------------------------\n");
+        return result;
+    }
     private void addGrammar(String s) {
         List<String> list = Arrays.stream(s.split(" "))
                 .filter(e -> !e.isBlank())
@@ -42,6 +63,10 @@ public class Grammar {
         String left = list.get(0);
         List<String> right = new ArrayList<>(list.subList(2, list.size())); // 获取右边表达式
         right.add("|");
+        if (left.equals(right.get(0))) {
+            removeLeftRecursion(s).forEach(this::addGrammar);
+            return;
+        }
         List<String> cur = new ArrayList<>();
         for (String word : right) {
             if (Objects.equals(word, "|")) {
@@ -68,7 +93,9 @@ public class Grammar {
     }
 
     public void show() {
+        System.out.println("DFA如下：");
         productionList.forEach(System.out::println);
+        System.out.println("\n---------------------------------\n");
     }
 
     public List<Production> getProductionList() {

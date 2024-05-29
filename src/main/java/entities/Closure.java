@@ -85,9 +85,9 @@ public class Closure {
         res.append("LR0Items: \t\n");
         items.forEach(item -> res.append(item).append("\n"));
         res.append("\n").append("nextMap:\n");
-        nextMap.forEach((key, value) -> res.append(key).append("\t\t").append(value.name));
+        nextMap.forEach((key, value) -> res.append(key).append("\t\t").append(value.name).append("\n"));
         res.append("\n").append("gotoMap:\n");
-        gotoMap.forEach((key, value) -> res.append(key).append("\t\t").append(value.name));
+        gotoMap.forEach((key, value) -> res.append(key).append("\t\t").append(value.name).append("\n"));
         res.append("\n----------------------------------------\n");
         return res.toString();
     }
