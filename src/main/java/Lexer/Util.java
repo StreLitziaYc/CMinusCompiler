@@ -1,8 +1,8 @@
 package Lexer;
 
-import Lexer.entities.SourceCode;
-import Lexer.entities.TokenList;
-import Lexer.enums.CharType;
+import entities.SourceCode;
+import entities.TokenList;
+import enums.CharType;
 
 import java.util.Arrays;
 import java.util.HashSet;

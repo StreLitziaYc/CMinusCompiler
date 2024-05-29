@@ -1,4 +1,4 @@
-package Lexer.enums;
+package enums;
 
 /**
  * token的六种类型
@@ -8,5 +8,6 @@ public enum TokenType {
     SYMBOL,
     ID,
     NUM,
-    OTHER
+    OTHER,
+    EMPTY
 }

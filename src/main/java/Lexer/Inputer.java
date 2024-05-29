@@ -1,9 +1,8 @@
 package Lexer;
 
-import Lexer.entities.SourceCode;
+import entities.SourceCode;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -17,7 +16,7 @@ public class Inputer {
 
     public SourceCode getSourceCode (){
         SourceCode sourceCode = new SourceCode();
-        StringBuilder stringBuilder = null;
+        StringBuilder stringBuilder;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             stringBuilder = new StringBuilder();

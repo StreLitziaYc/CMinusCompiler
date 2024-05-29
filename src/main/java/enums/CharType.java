@@ -1,4 +1,4 @@
-package Lexer.enums;
+package enums;
 
 public enum CharType {
     SPACE,

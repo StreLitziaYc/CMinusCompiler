@@ -1,7 +1,9 @@
-package Lexer;
-
-import Lexer.entities.SourceCode;
-import Lexer.entities.TokenList;
+import Lexer.Inputer;
+import Lexer.Scanner;
+import Lexer.Util;
+import Parser.Grammar;
+import entities.SourceCode;
+import entities.TokenList;
 
 public class Application {
     public static void main(String[] args) {
@@ -12,7 +14,11 @@ public class Application {
         // 进行词法扫描
         Scanner scanner = new Scanner(sourceCode);
         TokenList tokenList = scanner.getTokenList();
+        // 进行语法分析
+        String grammarRulePath = "src/main/resources/grammar.txt";
+        Grammar grammar = new Grammar(grammarRulePath);
+        grammar.show();
         // 输出结果
-        Util.show(sourceCode, tokenList);
+        //Util.show(sourceCode, tokenList);
     }
 }

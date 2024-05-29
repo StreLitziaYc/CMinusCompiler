@@ -1,9 +1,9 @@
-package Lexer.enums;
+package enums;
 
 /**
  * DFA中的各个状态
  */
-public enum State {
+public enum LexerState {
     START,
     INNUM,
     INID,

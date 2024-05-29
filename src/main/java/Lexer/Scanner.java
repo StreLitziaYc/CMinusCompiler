@@ -1,11 +1,11 @@
 package Lexer;
 
-import Lexer.entities.SourceCode;
-import Lexer.entities.Token;
-import Lexer.entities.TokenList;
-import Lexer.enums.CharType;
-import Lexer.enums.State;
-import Lexer.enums.TokenType;
+import entities.SourceCode;
+import entities.Token;
+import entities.TokenList;
+import enums.CharType;
+import enums.LexerState;
+import enums.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Scanner {
         int lineNum = 1;
         Token token = new Token();
         boolean finish = false;
-        State state = State.START;
+        LexerState state = LexerState.START;
         for(String codeLine : sourceCode.getCodeList()){
             List<Token> list = new ArrayList<>();
             for (int i = 0; i < codeLine.length(); i++) {
@@ -32,51 +32,51 @@ public class Scanner {
                 switch (state) {
                     case START -> {
                         switch (charType) {
-                            case SPACE -> state = State.START;
+                            case SPACE -> state = LexerState.START;
                             case DIGIT -> {
-                                state = State.INNUM;
+                                state = LexerState.INNUM;
                                 token.setType(TokenType.NUM);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case LETTER -> {
-                                state = State.INID;
+                                state = LexerState.INID;
                                 token.setType(TokenType.ID);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case EQUAL -> {
-                                state = State.INEQ;
+                                state = LexerState.INEQ;
                                 token.setType(TokenType.SYMBOL);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case EX -> {
-                                state = State.INNE;
+                                state = LexerState.INNE;
                                 token.setType(TokenType.SYMBOL);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case LESS -> {
-                                state = State.INLESS;
+                                state = LexerState.INLESS;
                                 token.setType(TokenType.SYMBOL);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case GREAT -> {
-                                state = State.INGREAT;
+                                state = LexerState.INGREAT;
                                 token.setType(TokenType.SYMBOL);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             case SLASH -> {
-                                state = State.LCOMMENT;
+                                state = LexerState.LCOMMENT;
                                 token.setType(TokenType.SYMBOL);
                                 token.setLineNum(lineNum);
                                 token.addChar(ch);
                             }
                             default -> {
-                                state = State.DONE;
+                                state = LexerState.DONE;
                                 token.setType(TokenType.SYMBOL);
                                 token.addChar(ch);
                                 token.setLineNum(lineNum);
@@ -87,13 +87,13 @@ public class Scanner {
                     case INNUM -> {
                         switch (charType) {
                             case DIGIT -> token.addChar(ch);
-                            default -> state = State.DONE;
+                            default -> state = LexerState.DONE;
                         }
                     }
                     case INID -> {
                         switch (charType) {
                             case LETTER -> token.addChar(ch);
-                            default -> state = State.DONE;
+                            default -> state = LexerState.DONE;
                         }
                     }
                     case INEQ, INNE, INLESS, INGREAT -> {
@@ -102,27 +102,27 @@ public class Scanner {
                                 token.addChar(ch);
                                 finish = true;
                             }
-                            default -> state = State.DONE;
+                            default -> state = LexerState.DONE;
                         }
                     }
                     case LCOMMENT -> {
                         switch (charType) {
                             case STAR -> {
-                                state = State.INCOMMENT;
+                                state = LexerState.INCOMMENT;
                                 token.addChar(ch);
                                 token.setType(TokenType.OTHER);
                             }
-                            default -> state = State.DONE;
+                            default -> state = LexerState.DONE;
                         }
                     }
                     case INCOMMENT -> {
                         switch (charType) {
                             case STAR -> {
-                                state = State.RCOMMENT;
+                                state = LexerState.RCOMMENT;
                                 token.addChar(ch);
                             }
                             default -> {
-                                state = State.INCOMMENT;
+                                state = LexerState.INCOMMENT;
                                 token.addChar(ch);
                             }
                         }
@@ -130,22 +130,22 @@ public class Scanner {
                     case RCOMMENT -> {
                         switch (charType) {
                             case SLASH -> {
-                                state = State.START;
+                                state = LexerState.START;
                                 token.addChar(ch);
                                 list.add(new Token(token));
                                 token.clear();
                             }
                             default -> {
-                                state = State.INCOMMENT;
+                                state = LexerState.INCOMMENT;
                                 token.addChar(ch);
                             }
                         }
                     }
                 }
-                if (state == State.DONE) {
+                if (state == LexerState.DONE) {
                     list.add(new Token(token));
                     token.clear();
-                    state = State.START;
+                    state = LexerState.START;
                     if (!finish) i--; //是否需要回溯
                     finish = false;
                 }

@@ -1,4 +1,4 @@
-package Lexer.exceptions;
+package exceptions;
 
 public class UnidentifiedWordException extends RuntimeException{
     public UnidentifiedWordException(int lineNum) {
