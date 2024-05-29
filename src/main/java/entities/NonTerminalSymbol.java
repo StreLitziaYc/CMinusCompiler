@@ -9,7 +9,7 @@ public class NonTerminalSymbol extends Symbol {
         this.type = SymbolType.NON_TERMINAL;
         this.name = name;
         firstSet = new HashSet<>();
-        firstSet = new HashSet<>();
+        followSet = new HashSet<>();
     }
 
     @Override
