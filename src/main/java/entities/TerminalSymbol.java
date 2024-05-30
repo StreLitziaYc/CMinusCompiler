@@ -9,6 +9,12 @@ public class TerminalSymbol extends Symbol {
         this.token = new Token(name);
     }
 
+    public TerminalSymbol (TerminalSymbol symbol) {
+        type = symbol.type;
+        name = symbol.name;
+        token = new Token(symbol.token);
+    }
+
     public Token getToken() {
         return token;
     }

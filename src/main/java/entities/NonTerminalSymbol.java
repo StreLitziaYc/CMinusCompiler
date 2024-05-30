@@ -12,6 +12,13 @@ public class NonTerminalSymbol extends Symbol {
         followSet = new HashSet<>();
     }
 
+    public void addEndSymbol() {
+        firstSet.add(new TerminalSymbol("empty"));
+    }
+
+    public void addSymbol(TerminalSymbol terminalSymbol) {
+        firstSet.add(new TerminalSymbol(terminalSymbol));
+    }
     @Override
     public String getName() {
         return name;

@@ -1,9 +1,6 @@
 package Parser;
 
-import entities.LR0Item;
-import entities.NonTerminalSymbol;
-import entities.Production;
-import entities.Symbol;
+import entities.*;
 import exceptions.GrammarTextErrorException;
 
 import java.io.BufferedReader;
@@ -100,5 +97,32 @@ public class Grammar {
 
     public List<Production> getProductionList() {
         return productionList;
+    }
+
+    public void setFirst() {
+        // TODO
+        Set<Production> set = new HashSet<>();
+        Map<NonTerminalSymbol, List<NonTerminalSymbol>> temp = new HashMap<>();
+        do {
+            for (Production production : productionList) {
+                NonTerminalSymbol left = production.getLhs();
+                List<Symbol> right = production.getRhs();
+                if (right.isEmpty()) left.addEndSymbol();
+                if (right.get(0).getType() == Symbol.SymbolType.TERMINAL) {
+                    left.addSymbol((TerminalSymbol) right.get(0));
+                }else {
+                    set.add(production);
+
+                }
+            }
+        }while (!set.isEmpty())
+    }
+
+    private boolean hasEmpty(NonTerminalSymbol symbol) {
+        List<Production> list = map.get(symbol);
+        for (Production p : list) {
+            if (p.getRhs().isEmpty()) return true;
+        }
+        return false;
     }
 }
